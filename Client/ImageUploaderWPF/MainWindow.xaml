@@ -1,0 +1,23 @@
+﻿<Window x:Class="ImageUploaderWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ImageUploaderWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="Openfile_button" Content="OpenFile" Height="20" VerticalAlignment="Bottom" Click="Select_file"/>
+            <Button x:Name="Upload_Button" Content="Upload this file http" Width="120" Margin="5,0" Click="Upload_ImgAsync"/>
+            <Button x:Name="Upload_Button_WebSocket" Content="Upload this file websocket" Width="150" Margin="5,0" Click="Upload_ImgAsync_Websocket"/>
+            <TextBox TextWrapping="Wrap" Text="wss://localhost:44321/ws" Width="205" Margin="0,0,0,-0.429" Name="textBox"/>
+        </StackPanel>
+        <Image HorizontalAlignment="Left" Height="266" Margin="93,59,0,0" Grid.Row="1" VerticalAlignment="Top" Width="567" Name="ImageBox"/>
+    </Grid>
+</Window>
