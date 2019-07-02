@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WebSocketImageCommunicator.WebSocketScript;
 
 namespace WebSocketImageCommunicator
 {
@@ -31,12 +32,13 @@ namespace WebSocketImageCommunicator
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddWebSocketHandler();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -51,6 +53,10 @@ namespace WebSocketImageCommunicator
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            app.UseWebSockets();
+
+            app.MapWebSocketChatMiddleware("/ws", serviceProvider.GetService<ImageCommunicateHandler>());
 
             app.UseMvc(routes =>
             {
